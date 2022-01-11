@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/AppColors.dart';
-import '../screens/home_screen.dart';
+import './utils/app_colors.dart';
+import 'screens/products_overview_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   var mySystemTheme = SystemUiOverlayStyle.light.copyWith(
       statusBarColor: AppColors.primary,
-      systemNavigationBarColor: AppColors.secondary,
+      systemNavigationBarColor: AppColors.primary,
       systemNavigationBarIconBrightness: Brightness.light);
   SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'MyShop',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: AppColors.primary as MaterialColor,
       ),
-      home: const HomeScreen(),
+      home: const ProjectOverviewScreen(),
     );
   }
 }
