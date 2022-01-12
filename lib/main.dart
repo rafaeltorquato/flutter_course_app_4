@@ -8,7 +8,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   var mySystemTheme = SystemUiOverlayStyle.light.copyWith(
       statusBarColor: AppColors.primary,
-      systemNavigationBarColor: AppColors.primary,
+      systemNavigationBarColor: Colors.transparent,
       systemNavigationBarIconBrightness: Brightness.light);
   SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -25,8 +25,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MyShop',
       theme: ThemeData(
-        primarySwatch: AppColors.primary as MaterialColor,
-      ),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Lato',
+          primarySwatch: AppColors.primary as MaterialColor,
+          colorScheme: Theme.of(context).colorScheme.copyWith(
+                primary: AppColors.primary,
+                secondary: AppColors.secondary,
+              )),
       home: const ProjectOverviewScreen(),
     );
   }
