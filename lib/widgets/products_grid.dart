@@ -6,33 +6,29 @@ import '../widgets/product_item.dart';
 import '../providers/product.dart';
 
 class ProductsGrid extends StatelessWidget {
-  final bool showOnlyFavorites;
-  const ProductsGrid({Key? key, required this.showOnlyFavorites})
-      : super(key: key);
+  const ProductsGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var productsProvider = Provider.of<Products>(context);
-    List<Product> products = showOnlyFavorites
-        ? productsProvider.favoritesItems
-        : productsProvider.items;
-    return GridView.builder(
-      padding: const EdgeInsets.all(10),
-      itemCount: products.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 5,
-      ),
-      itemBuilder: (ctx, idx) {
-        return ChangeNotifierProvider.value(
-          value: products[idx],
-          child: ProductItem(
+    return Consumer<Products>(builder: (ctx, provider, child) {
+      List<Product> products = provider.filterAppliedItems;
+      return GridView.builder(
+        padding: const EdgeInsets.all(10),
+        itemCount: products.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+        ),
+        itemBuilder: (ctx, idx) {
+          return ChangeNotifierProvider.value(
             key: ValueKey(products[idx].id),
-          ),
-        );
-      },
-    );
+            value: products[idx],
+            child: const ProductItem(),
+          );
+        },
+      );
+    });
   }
 }

@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../providers/products.dart';
 import '../widgets/products_grid.dart';
 
-enum FilterOptions { favorites, all }
-
-class ProjectOverviewScreen extends StatefulWidget {
+class ProjectOverviewScreen extends StatelessWidget {
   const ProjectOverviewScreen({Key? key}) : super(key: key);
-
-  @override
-  State<ProjectOverviewScreen> createState() => _ProjectOverviewScreenState();
-}
-
-class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
-  bool _showOnlyFavorites = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,29 +14,30 @@ class _ProjectOverviewScreenState extends State<ProjectOverviewScreen> {
         appBar: AppBar(
           title: const Text('MyShop'),
           actions: [
-            PopupMenuButton(
-                icon: const Icon(Icons.more_vert),
-                onSelected: (FilterOptions selectedValue) {
-                  setState(() {
-                    _showOnlyFavorites =
-                        selectedValue == FilterOptions.favorites;
-                  });
-                },
-                itemBuilder: (_) => [
-                      const PopupMenuItem(
-                        child: Text('Only Favorites'),
-                        value: FilterOptions.favorites,
-                      ),
-                      const PopupMenuItem(
-                        child: Text('Show All'),
-                        value: FilterOptions.all,
-                      ),
-                    ])
+            Consumer<Products>(
+              builder: (ctx, provider, child) => PopupMenuButton(
+                  icon: const Icon(Icons.more_vert),
+                  onSelected: (FilterOptions selectedValue) {
+                    Provider.of<Products>(context, listen: false)
+                        .setFilterOptions(selectedValue);
+                  },
+                  itemBuilder: (_) => [
+                        PopupMenuItem(
+                          child: const Text('Only Favorites'),
+                          enabled: FilterOptions.favorites !=
+                              provider.selectedFilter,
+                          value: FilterOptions.favorites,
+                        ),
+                        PopupMenuItem(
+                          child: const Text('Show All'),
+                          enabled: FilterOptions.all != provider.selectedFilter,
+                          value: FilterOptions.all,
+                        ),
+                      ]),
+            )
           ],
         ),
-        body: ProductsGrid(
-          showOnlyFavorites: _showOnlyFavorites,
-        ),
+        body: const ProductsGrid(),
       ),
     );
   }

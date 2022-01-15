@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
 
+enum FilterOptions { favorites, all }
+
 class Products with ChangeNotifier {
+  FilterOptions _selectedFilter = FilterOptions.all;
+
   final List<Product> _items = [
     Product(
       id: 'p1',
@@ -41,5 +45,26 @@ class Products with ChangeNotifier {
     return [..._items];
   }
 
-  get favoritesItems => _items.where((e) => e.isFavorite).toList();
+  FilterOptions get selectedFilter => _selectedFilter;
+
+  get filterAppliedItems {
+    List<Product> items;
+    if (_selectedFilter == FilterOptions.favorites) {
+      items = _items.where((e) => e.isFavorite).toList();
+    } else {
+      items = [..._items];
+    }
+    return items;
+  }
+
+  void setFilterOptions(FilterOptions value) {
+    _selectedFilter = value;
+    notifyListeners();
+  }
+
+  void itemChanged() {
+    if (_selectedFilter == FilterOptions.favorites) {
+      notifyListeners();
+    }
+  }
 }

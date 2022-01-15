@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_course_app_4/providers/products.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,10 @@ class ProductItem extends StatelessWidget {
                     firstChild: const Icon(Icons.favorite),
                     secondChild: const Icon(Icons.favorite_outline),
                   ),
-                  onPressed: () => product.toggleFavorite(),
+                  onPressed: () {
+                    product.toggleFavorite();
+                    Provider.of<Products>(context, listen: false).itemChanged();
+                  },
                 ),
                 trailing: IconButton(
                   icon: const Icon(Icons.shopping_bag),
