@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/product_detail_screen.dart';
-import '../models/product.dart';
+import '../providers/product.dart';
 
 class ProductItem extends StatelessWidget {
   static final _numberFormat = NumberFormat.simpleCurrency();

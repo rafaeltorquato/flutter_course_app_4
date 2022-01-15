@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course_app_4/models/product.dart';
+import 'package:flutter_course_app_4/providers/product.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const String routeWithArgs = '/product-detail-screen';
