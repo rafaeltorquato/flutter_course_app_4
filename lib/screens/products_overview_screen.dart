@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_course_app_4/widgets/cart_badge.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/products.dart';
@@ -14,6 +15,9 @@ class ProjectOverviewScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('MyShop'),
           actions: [
+            CartBadge(
+              onPressed: () {},
+            ),
             Consumer<Products>(
               builder: (ctx, provider, child) => PopupMenuButton(
                   icon: const Icon(Icons.more_vert),

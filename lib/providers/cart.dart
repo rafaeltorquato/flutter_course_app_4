@@ -7,9 +7,10 @@ class Cart with ChangeNotifier {
 
   int get quantity => _items.length;
 
+  bool containsProduct(Product product) => _items.containsKey(product.id);
+
   void addProduct(Product product) {
-    var containsProduct = _items.containsKey(product.id);
-    if (containsProduct) {
+    if (containsProduct(product)) {
       _items.update(
         product.id,
         (oldItem) => CartItem(
