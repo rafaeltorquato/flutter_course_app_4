@@ -30,7 +30,7 @@ class CartBadge extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
               child: Consumer<Cart>(
                 builder: (ctx, cart, child) => Text(
-                  cart.quantity.toString(),
+                  cart.totalProducts.toString(),
                   style: const TextStyle(fontSize: 10),
                 ),
               ),

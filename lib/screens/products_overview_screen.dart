@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course_app_4/widgets/cart_badge.dart';
 import 'package:provider/provider.dart';
 
+import '../screens/cart_screen.dart';
+import '../widgets/cart_badge.dart';
 import '../providers/products.dart';
 import '../widgets/products_grid.dart';
 
@@ -16,7 +17,7 @@ class ProjectOverviewScreen extends StatelessWidget {
           title: const Text('MyShop'),
           actions: [
             CartBadge(
-              onPressed: () {},
+              onPressed: () => Navigator.pushNamed(context, CartScreen.route),
             ),
             Consumer<Products>(
               builder: (ctx, provider, child) => PopupMenuButton(

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/format_utils.dart';
 import '../providers/products.dart';
 import '../providers/cart.dart';
 import '../screens/product_detail_screen.dart';
 import '../providers/product.dart';
 
 class ProductItem extends StatelessWidget {
-  static final _numberFormat = NumberFormat.simpleCurrency();
   const ProductItem({Key? key}) : super(key: key);
 
   showDetails(BuildContext context, Product product) {
@@ -30,7 +29,7 @@ class ProductItem extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               header: Text(
-                _numberFormat.format(product.price),
+                FormatUtils.currency(product.price),
               ),
               footer: GridTileBar(
                 backgroundColor: Colors.black54,

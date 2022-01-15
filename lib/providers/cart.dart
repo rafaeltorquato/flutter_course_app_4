@@ -3,9 +3,14 @@ import 'package:flutter/foundation.dart';
 import '../providers/product.dart';
 
 class Cart with ChangeNotifier {
-  final Map<String, CartItem> _items = {};
+  final Map<String, ProductInCart> _items = {};
 
-  int get quantity => _items.length;
+  int get totalProducts => _items.length;
+
+  double get totalAmount => _items.entries
+      .map((e) => e.value)
+      .map((e) => e.totalAmount)
+      .fold(0.0, (a, b) => a + b);
 
   bool containsProduct(Product product) => _items.containsKey(product.id);
 
@@ -13,7 +18,7 @@ class Cart with ChangeNotifier {
     if (containsProduct(product)) {
       _items.update(
         product.id,
-        (oldItem) => CartItem(
+        (oldItem) => ProductInCart(
           id: oldItem.id,
           product: oldItem.product,
           quantity: oldItem.quantity + 1,
@@ -22,7 +27,7 @@ class Cart with ChangeNotifier {
     } else {
       _items.putIfAbsent(
         product.id,
-        () => CartItem(
+        () => ProductInCart(
           id: product.id + '-cart-item',
           product: product,
           quantity: 1,
@@ -31,16 +36,22 @@ class Cart with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  ProductInCart getItemAt(int idx) {
+    return _items.entries.elementAt(idx).value;
+  }
 }
 
-class CartItem {
+class ProductInCart {
   final String id;
   final Product product;
   final int quantity;
 
-  CartItem({
+  ProductInCart({
     required this.id,
     required this.product,
     required this.quantity,
   });
+
+  double get totalAmount => quantity * product.price;
 }
