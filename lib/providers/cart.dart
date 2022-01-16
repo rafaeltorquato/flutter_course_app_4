@@ -37,8 +37,13 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  ProductInCart getItemAt(int idx) {
-    return _items.entries.elementAt(idx).value;
+  ProductInCart getItemAt(int index) {
+    return _items.entries.elementAt(index).value;
+  }
+
+  void removeItem(ProductInCart productInCart) {
+    _items.remove(productInCart.product.id);
+    notifyListeners();
   }
 }
 

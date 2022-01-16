@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_course_app_4/providers/cart.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/cart.dart';
+import '../utils/app_colors.dart';
 
 class CartBadge extends StatelessWidget {
   final VoidCallback onPressed;
@@ -26,7 +28,7 @@ class CartBadge extends StatelessWidget {
               height: 16,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: AppColors.secondary,
                   borderRadius: BorderRadius.circular(10)),
               child: Consumer<Cart>(
                 builder: (ctx, cart, child) => Text(

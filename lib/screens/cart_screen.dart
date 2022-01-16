@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/app_colors.dart';
 import '../widgets/cart_item.dart';
 import '../providers/cart.dart';
 import '../utils/format_utils.dart';
@@ -36,14 +37,14 @@ class CartScreen extends StatelessWidget {
                         FormatUtils.currency(cart.totalAmount),
                         style: const TextStyle(color: Colors.white),
                       ),
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: AppColors.primary,
                     ),
-                    if (cart.totalProducts > 0)
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: const Text('ORDER NOW'),
-                        style: ElevatedButton.styleFrom(primary: Colors.red),
-                      )
+                    ElevatedButton(
+                      onPressed: cart.totalProducts > 0 ? () {} : null,
+                      child: const Text('ORDER NOW'),
+                      style: ElevatedButton.styleFrom(
+                          primary: AppColors.secondary),
+                    )
                   ],
                 ),
               ),
@@ -61,6 +62,7 @@ class CartScreen extends StatelessWidget {
                 itemBuilder: (ctx, idx) {
                   ProductInCart productInCart = cart.getItemAt(idx);
                   return CartItem(
+                    onRemove: (productInCart) => cart.removeItem(productInCart),
                     key: ValueKey(productInCart.id),
                     productInCart: productInCart,
                   );
